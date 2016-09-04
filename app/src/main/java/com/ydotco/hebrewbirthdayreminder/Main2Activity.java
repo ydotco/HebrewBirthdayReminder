@@ -26,11 +26,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        hideTitleBar();
+
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
 
@@ -57,6 +57,12 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
 
+    }
+
+    private void hideTitleBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().hide();
     }
 
     //setting up a list of contacts to be shown at the listview
@@ -114,6 +120,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.fab1:
                 Toast.makeText(Main2Activity.this, "import manually", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.fab2:
                 Toast.makeText(Main2Activity.this, "import from facebook", Toast.LENGTH_SHORT).show();

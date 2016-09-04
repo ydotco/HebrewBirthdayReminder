@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+
     tools:context="com.ydotco.hebrewbirthdayreminder.Main2Activity">
 
         <android.support.design.widget.AppBarLayout
@@ -34,12 +35,12 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="invisible"
         app:elevation="6dp"
-        app:backgroundTint="@color/colorFAB2"
+        app:backgroundTint="@color/colorFabTwo"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/facebook_add" />
+        android:src="@drawable/ic_facebook_add" />
 
     <android.support.design.widget.FloatingActionButton
-        app:backgroundTint="@color/colorFAB1"
+        app:backgroundTint="@color/colorFabOne"
         android:id="@+id/fab1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/account_plus" />
+        android:src="@drawable/ic_account_plus" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
