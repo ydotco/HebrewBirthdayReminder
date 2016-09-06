@@ -79,13 +79,13 @@ public class HebEngDate {
 
     public Date makeDate(){
 
-        String mgd = Util.ConvertIntToString(gd);
+        String mgd ;
         String mgm = Util.ConvertIntToString(gm);
-        String mgy;
-        if (gy<10)
-            mgy= "0"+Util.ConvertIntToString(gy);
+        String mgy= Util.ConvertIntToString(gy);
+        if (gd<10)
+            mgd= "0"+Util.ConvertIntToString(gd);
         else
-            mgy=Util.ConvertIntToString(gy);
+            mgd=Util.ConvertIntToString(gd);
         String s= mgd +"/"+mgm +"/"+ mgy;
             return Util.CovertStringToDate(s);
     }

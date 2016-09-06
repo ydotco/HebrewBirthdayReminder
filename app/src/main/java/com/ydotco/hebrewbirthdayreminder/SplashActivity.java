@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ydotco.hebrewbirthdayreminder.convert.from.network.Jsonizer;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,11 +69,4 @@ public class SplashActivity extends AppCompatActivity {
         Toast.makeText(SplashActivity.this, "the returned value is "+ user.EditContact(contact,this), Toast.LENGTH_SHORT).show();
     }
 
-    public void delFromDB(View view) {
-       Jsonizer jsonizer=new Jsonizer();
-               jsonizer.makeHebEngRequest("http://www.hebcal.com/converter/?cfg=json&gy=2011&gm=6&gd=2&g2h=1");
-
-
-
-    }
 }

@@ -1,5 +1,6 @@
 package com.ydotco.hebrewbirthdayreminder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import java.util.List;
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ContactAdapter contactAdapter;
+    User user=User.getInstance();
     CalendarView calendarView;
 
     private Boolean isFabOpen = false;
@@ -29,7 +31,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        hideTitleBar();
+        //hideTitleBar();
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
@@ -39,6 +41,12 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
 
         initcalView();
+
+        //refresh data on calendarview
+        //print upcoming events
+
+
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -87,7 +95,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private void initcalView() {
         //add dates to calendar
     }
-
+    //when a date is clicked on show relevant contacts
     private void updateList(int year, int month, int dayOfMonth) {
     }
 
@@ -120,11 +128,13 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.fab1:
                 Toast.makeText(Main2Activity.this, "import manually", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(this, AddContact.class);
+                startActivity(intent);
                 break;
             case R.id.fab2:
-                Toast.makeText(Main2Activity.this, "import from facebook", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
+
         }
     }
 }

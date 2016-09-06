@@ -1,5 +1,9 @@
 package com.ydotco.hebrewbirthdayreminder;
 
+import android.util.Log;
+
+import com.ydotco.hebrewbirthdayreminder.convert.from.network.Jsonizer;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,7 +46,6 @@ public class Contact {
         this.weekReminder = weekReminder;
         this.dayReminder = dayReminder;
 
-        GetConvertedBDays();
 
     }
 
@@ -64,9 +67,31 @@ public class Contact {
     }
 
     //methods
-    public void GetConvertedBDays() {
-        //get next five years from internet\
-        //add them to list
+    public void GetConvertedBDays(int yearx, int monthx, int dayx) {
+        Jsonizer jsonizer=new Jsonizer();
+      /*  StringTokenizer tokens = new StringTokenizer(Util.ConvertDateToString(eDate), "/");
+        String sDay=tokens.nextToken();
+        String sMonth=tokens.nextToken();
+        String sYear=tokens.nextToken();*/
+        String sDay=Util.ConvertIntToString(dayx);
+        String sMonth=Util.ConvertIntToString(monthx);
+        String sYear=Util.ConvertIntToString(yearx);
+        jsonizer.makeHebEngRequest("http://www.hebcal.com/converter/?cfg=json&gy="+sYear+"&gm="+sMonth+"&gd="+sDay+"&g2h=1");
+        System.out.println("size is "+jsonizer.list.size());
+        while (jsonizer.done==false)
+        {
+            try {
+                Thread.sleep(1000);
+                Log.i("info","slept for 1 sec");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        hDay=jsonizer.hebEngDate.getHd();
+        hMonth=jsonizer.hebEngDate.getHm();
+        hYear=jsonizer.hebEngDate.getHy();
+        for (Date date:jsonizer.list) {nextFiveYears.add(date);}
+        System.out.println("+++++"+nextFiveYears.toString());
     }
 
     @Override

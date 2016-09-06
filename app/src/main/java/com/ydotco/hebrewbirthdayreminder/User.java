@@ -66,7 +66,6 @@ public class User {
     }
 
     public void AddContact(Contact newContact, Context context) {
-        //newContact.GetConvertedBDays();
         newContact.id = AddContactToDB(newContact, context);
         contactList.add(newContact);
     }
@@ -86,7 +85,7 @@ public class User {
         newContact.monthReminder = monthReminder;
         newContact.weekReminder = weekReminder;
         newContact.dayReminder = dayReminder;
-        newContact.GetConvertedBDays();
+       // newContact.GetConvertedBDays(yearx, monthx, dayx);
         newContact.id = AddContactToDB(newContact, context);
         contactList.add(newContact);
     }
@@ -114,6 +113,7 @@ public class User {
         contentValues.put("weekReminder", contact.weekReminder);
         contentValues.put("dayReminder", contact.dayReminder);
         id = db.insert("CONTACTS", null, contentValues);
+        db.close();
         return (int) id;
     }
 

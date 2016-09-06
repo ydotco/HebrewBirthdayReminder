@@ -1,5 +1,7 @@
 package com.ydotco.hebrewbirthdayreminder.convert.from.network;
 
+import android.util.Log;
+
 import com.ydotco.hebrewbirthdayreminder.HebEngDate;
 
 import org.json.JSONException;
@@ -21,18 +23,17 @@ import okhttp3.Response;
  */
 public class Jsonizer {
 
-    HebEngDate hebEngDate = null;
+    public HebEngDate hebEngDate = null;
+    public OkHttpClient client = null;
+    public ArrayList<Date> list = null;
+    public String curHebYear = "5776";
+    public boolean done;
+    private int i = 0;
 
-    public ArrayList<Date> getList() {
-        return list;
-    }
 
-    OkHttpClient client = null;
-    ArrayList<Date> list = null;
-    String curHebYear = "5776";
-    int i = 0;
 
     public Jsonizer() {
+        done=false;
         hebEngDate = new HebEngDate();
         client = OkHttpSingleton.getInstance().getClient();
         list = new ArrayList<>();
@@ -61,13 +62,12 @@ public class Jsonizer {
                     hebEngDate.setHy(Integer.parseInt(jsonObject.get("hy").toString()));
                     hebEngDate.setHm(jsonObject.get("hm").toString());
                     hebEngDate.setHd(Integer.parseInt(jsonObject.get("hd").toString()));
-                    //add birthday to contact
+                    Log.i("info","jsonizer after first convert");
                     convertAll();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
         });
 
     }
@@ -97,6 +97,8 @@ public class Jsonizer {
         getJsonF(request2);
         getJsonF(request3);
         getJsonF(request4);
+        Log.i("info", "jsonizer after all request were made");
+
 
     }
 
@@ -126,9 +128,14 @@ public class Jsonizer {
                     i++;
                     if (i == 5) {
                         SortList(list);
+                        Log.i("info","jsonizer after all request were made (i=5)");
+                        System.out.println("finished!");
+                        done=true;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.i("info","jsonizer error in one of the reqeust");
+
                 }
             }
         });
@@ -137,8 +144,13 @@ public class Jsonizer {
 
     private void SortList(ArrayList<Date> list) {
         Collections.sort(list);
+        Log.i("info","jsonizer list sorted");
+
     }
 
+    public ArrayList<Date> getList() {
+        return list;
+    }
     public HebEngDate getHebEngDate() {
         return hebEngDate;
     }

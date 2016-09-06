@@ -8,9 +8,9 @@ import java.util.Date;
 /**
  * Created by yotamc on 14-Aug-16.
  */
-public class Util
-{
-    static final String[] hebMonths={"Nisan", "Iyyar", "Sivan", "Tamuz", "Av", "Elul", "Tishrei", "Cheshvan", "Kislev", "Tevet", "Shvat", "Adar1", "Adar2"};
+public class Util {
+    static final String[] hebMonths = {"Nisan", "Iyyar", "Sivan", "Tamuz", "Av", "Elul", "Tishrei", "Cheshvan", "Kislev", "Tevet", "Shvat", "Adar1", "Adar2"};
+
     static public int ConvertStringToInt(String stringInt) {
         return Integer.parseInt(stringInt);
     }
@@ -41,4 +41,17 @@ public class Util
         }
         return date;
     }
+
+    public static Date ConvertIntToDate(int yearx, int monthx, int dayx) {
+        String mgd;
+        String mgm = ConvertIntToString(monthx);
+        String mgy = ConvertIntToString(yearx);
+        if (dayx < 10)
+            mgd = "0" + Util.ConvertIntToString(dayx);
+        else
+            mgd = Util.ConvertIntToString(dayx);
+        String s = mgd + "/" + mgm + "/" + mgy;
+        return Util.CovertStringToDate(s);
+    }
 }
+
