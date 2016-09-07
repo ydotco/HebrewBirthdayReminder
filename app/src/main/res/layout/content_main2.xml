@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/llMain">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/llMain">
 
     <CalendarView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/calendarView"
-        android:layout_weight="1.00"/>
+        android:layout_weight="0.77"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/rvCalendarContacts"
 
-        android:layout_weight="0.80" />
+        android:layout_weight="0.70" />
 </LinearLayout>

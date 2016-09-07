@@ -41,7 +41,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
 
         initcalView();
-
         //refresh data on calendarview
         //print upcoming events
 
@@ -93,6 +92,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initcalView() {
+
         //add dates to calendar
     }
     //when a date is clicked on show relevant contacts

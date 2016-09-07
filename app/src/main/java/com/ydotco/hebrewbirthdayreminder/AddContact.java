@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class AddContact extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class AddContact extends AppCompatActivity {
     EditText etFName, etLName, etPhone;
     CheckBox cbWeek, cbMonth, cbDay;
     int yearx, monthx, dayx;
+    ProgressBar progressBar;
+
 
     static final int DIALOG_ID = 0;
 
@@ -33,6 +36,7 @@ public class AddContact extends AppCompatActivity {
         monthx = 8;
         dayx = 10;
         contact = new Contact();
+        progressBar= (ProgressBar) findViewById(R.id.loadingPanel);
         etFName = (EditText) findViewById(R.id.etFName);
         etLName = (EditText) findViewById(R.id.etLname);
         etPhone = (EditText) findViewById(R.id.etPhone);
@@ -53,6 +57,8 @@ public class AddContact extends AppCompatActivity {
             etLName.setError("please enter Last name");
             return;
         }
+        Toast.makeText(AddContact.this, fName+lName+phone, Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.VISIBLE);
         contact.fName = fName;
         contact.lName = lName;
         contact.phoneNumber = phone;
@@ -63,6 +69,7 @@ public class AddContact extends AppCompatActivity {
         contact.GetConvertedBDays(yearx,monthx,dayx);
         user.AddContact(contact,this);
         Toast.makeText(AddContact.this, "Contact Added Successfully!", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
         Intent intent=new Intent(this,Main2Activity.class);
         startActivity(intent);
     }

@@ -41,33 +41,51 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:src="@drawable/ic_call_black_24dp"
-        android:layout_below="@+id/etLname"
+        android:layout_below="@+id/simpleTextInputLayoutLName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="33dp" />
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/simpleTextInputLayoutFName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_alignBottom="@+id/ivFName">
     <EditText
         android:id="@+id/etFName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivFName"
-        android:layout_marginLeft="72dp"
         android:ems="10"
         android:hint="First name"
         android:inputType="textPersonName"
         android:textColorHint="#d6d5d5" />
+    </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/simpleTextInputLayoutLName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_below="@+id/ivFName">
     <EditText
         android:id="@+id/etLname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_below="@+id/ivFName"
         android:ems="10"
         android:hint="Last name"
         android:inputType="textPersonName"
         android:textColorHint="#d6d5d5" />
+    </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/simpleTextInputLayoutPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_alignTop="@+id/imageView2"
+       >
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="wrap_content"
@@ -75,10 +93,8 @@
         android:ems="10"
         android:hint="Phone number"
         android:inputType="phone"
-        android:textColorHint="#d6d5d5"
-        android:layout_marginLeft="72dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
+        android:textColorHint="#d6d5d5" />
+    </android.support.design.widget.TextInputLayout>
 
     <CheckBox
         android:id="@+id/cbMonth"
@@ -86,10 +102,9 @@
         android:layout_height="wrap_content"
         android:checked="false"
         android:text="month"
-        android:layout_marginBottom="44dp"
-        android:layout_above="@+id/btnDatePicker"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2" />
+        android:layout_alignTop="@+id/cbWeek"
+        android:layout_toLeftOf="@+id/cbWeek"
+         />
 
     <CheckBox
         android:id="@+id/cbWeek"
@@ -97,8 +112,11 @@
         android:layout_height="wrap_content"
         android:checked="false"
         android:text="week"
-        android:layout_alignTop="@+id/cbMonth"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/btnDatePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="41dp" />
 
     <CheckBox
         android:id="@+id/cbDay"
@@ -107,8 +125,8 @@
         android:checked="true"
         android:text="Day"
         android:layout_alignTop="@+id/cbWeek"
-        android:layout_toRightOf="@+id/btnDatePicker"
-        android:layout_toEndOf="@+id/btnDatePicker" />
+        android:layout_toRightOf="@+id/cbWeek"
+         />
 
     <TextView
         android:id="@+id/tvReminded"
@@ -128,20 +146,43 @@
         android:layout_height="wrap_content"
         android:onClick="chooseDateBtnClick"
         android:text="Birthday date"
+        android:layout_marginBottom="57dp"
         android:layout_above="@+id/btnAdd"
-        android:layout_toRightOf="@+id/cbMonth"
-        android:layout_toEndOf="@+id/cbMonth"
-        android:layout_marginBottom="51dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/cbWeek"
-        android:layout_toRightOf="@+id/cbWeek"
         android:onClick="AddContactBtnClick"
-        android:text="add contact" />
+        android:text="add contact"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btnDatePicker"
+        android:layout_alignEnd="@+id/btnDatePicker" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/ivChooseDate"
+        android:src="@drawable/ic_birthday_cake"
+        android:layout_below="@+id/cbWeek"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:id="@+id/loadingPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"/>
+    </RelativeLayout>
 
 
 </RelativeLayout>
