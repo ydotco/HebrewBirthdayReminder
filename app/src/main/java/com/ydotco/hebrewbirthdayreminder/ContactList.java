@@ -17,6 +17,7 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
     private RecyclerView recyclerview;
     private List<Contact> mContactModel;
     private ContactAdapter adapter;
+    User user = User.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +26,12 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
         recyclerview = (RecyclerView) findViewById(R.id.rvContactList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);
-
-        //setHasOptionsMenu(true);
-        //String[] locales = Locale.getISOCountries();
         mContactModel = new ArrayList<>();
+        mContactModel.addAll(user.contactList);
 
-       // for (String countryCode : locales) {
-        //    Locale obj = new Locale("", countryCode);
-       //     mCountryModel.add(new CountryModel(obj.getDisplayCountry(), obj.getISO3Country()));
-       // }
 
-       // adapter = new RVAdapter(mCountryModel);
-      ////  recyclerview.setAdapter(adapter);
+        adapter = new ContactAdapter(this, mContactModel);
+        recyclerview.setAdapter(adapter);
     }
 
     @Override
@@ -46,18 +41,32 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-
         return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String query) {
-        // Here is where we are going to implement the filter logic
-        return false;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        query = query.toLowerCase();
+
+        final List<Contact> filteredModelList = new ArrayList<>();
+        for (Contact model : mContactModel) {
+            final String textF = model.fName.toLowerCase();
+            final String textL = model.lName.toLowerCase();
+
+            if (textF.contains(query) || textL.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+
+
+
+        adapter.animateTo(filteredModelList);
+        recyclerview.scrollToPosition(0);
+        return true;
     }
 }

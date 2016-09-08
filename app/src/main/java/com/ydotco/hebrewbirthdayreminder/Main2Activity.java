@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
@@ -30,7 +31,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
         //hideTitleBar();
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
@@ -43,8 +43,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         initcalView();
         //refresh data on calendarview
         //print upcoming events
-
-
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -66,6 +64,28 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.main_menu, menu);
+            return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.icAllContacts:
+                Intent intent =new Intent(this,ContactList.class);
+                startActivity(intent);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
     private void hideTitleBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,7 +94,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     //setting up a list of contacts to be shown at the listview
     private List<Contact> getContactList() {
-        List<Contact> contacts = new ArrayList<>();
+       /* List<Contact> contacts = new ArrayList<>();
         String[] fNames = {"Yoni", "Ora", "Vered", "Ofek", "Asher"};
         String[] lNames = {"sade", "Loepold", "Engel", "Benzer", "Schwartz"};
         int[] dayDates = {22, 10, 1, 17, 8};
@@ -88,7 +108,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             contactt.hDay = dayDates[i];
             contacts.add(contactt);
         }
-        return contacts;
+        return contacts;*/
+        return user.contactList;
     }
 
     private void initcalView() {
@@ -127,7 +148,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 animateFAB();
                 break;
             case R.id.fab1:
-                Toast.makeText(Main2Activity.this, "import manually", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AddContact.class);
                 startActivity(intent);
                 break;
