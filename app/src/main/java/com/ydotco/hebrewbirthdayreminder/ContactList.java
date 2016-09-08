@@ -63,7 +63,7 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
             }
         }
 
-
+        //fix when deleting query
 
         adapter.animateTo(filteredModelList);
         recyclerview.scrollToPosition(0);
