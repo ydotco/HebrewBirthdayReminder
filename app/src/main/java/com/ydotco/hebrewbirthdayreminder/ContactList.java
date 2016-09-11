@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactList extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -28,6 +30,10 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
         recyclerview.setLayoutManager(layoutManager);
         mContactModel = new ArrayList<>();
         mContactModel.addAll(user.contactList);
+
+        //sort list by name
+        Comparator cp = Contact.getComparator(Contact.SortParameter.NAME_ASCENDING);
+        Collections.sort(mContactModel, cp);
 
 
         adapter = new ContactAdapter(this, mContactModel);

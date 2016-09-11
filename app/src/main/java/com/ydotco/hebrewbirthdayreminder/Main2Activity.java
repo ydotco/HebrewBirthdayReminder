@@ -40,7 +40,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         contactAdapter = new ContactAdapter(getApplication(), getContactList());
         recyclerView.setAdapter(contactAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
-
         initcalView();
         //refresh data on calendarview
         //print upcoming events
@@ -155,7 +154,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             case R.id.fab2:
                 Intent intent1=new Intent(this,EditContact.class);
                 Contact contactq=user.contactList.get(0);
-                System.out.println("++++before-> "+contactq.toString());
                 intent1.putExtra("contact",contactq);
                 startActivity(intent1);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();

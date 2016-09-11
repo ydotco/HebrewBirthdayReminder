@@ -7,6 +7,7 @@ import android.util.Log;
 import com.ydotco.hebrewbirthdayreminder.convert.from.network.Jsonizer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -40,7 +41,7 @@ public class Contact implements Parcelable {
         fName = in.readString();
         lName = in.readString();
         eDate = new Date(in.readLong());
-        nextFiveYears=new ArrayList<Date>();
+        nextFiveYears = new ArrayList<>();
         nextFiveYears.add(new Date(in.readLong()));
         nextFiveYears.add(new Date(in.readLong()));
         nextFiveYears.add(new Date(in.readLong()));
@@ -97,7 +98,7 @@ public class Contact implements Parcelable {
         String sYear = Util.ConvertIntToString(yearx);
         jsonizer.makeHebEngRequest("http://www.hebcal.com/converter/?cfg=json&gy=" + sYear + "&gm=" + sMonth + "&gd=" + sDay + "&g2h=1");
         int tried = 0;
-        while (jsonizer.done == false) {
+        while (!jsonizer.done) {
             if (tried < 5) {
                 try {
                     Thread.sleep(1000);
@@ -178,4 +179,49 @@ public class Contact implements Parcelable {
     };
 
 
+    //comperator
+        /* use like this :
+        Comperator cp = Contact.getComparator(Contact.SortParameter.ADDRESS_ASCENDING,
+        Contact.SortParameter.NAME_DESCENDING);
+        Collections.sort(ContactList, cp);*/
+
+
+    public static Comparator<Contact> getComparator(SortParameter... sortParameters) {
+        return new ContactComparator(sortParameters);
+    }
+
+    public enum SortParameter {
+        NAME_ASCENDING, NAME_DESCENDING
+    }
+
+    private static class ContactComparator implements Comparator<Contact> {
+        private SortParameter[] parameters;
+
+        private ContactComparator(SortParameter[] parameters) {
+            this.parameters = parameters;
+        }
+
+        public int compare(Contact o1, Contact o2) {
+            int comparison;
+            for (SortParameter parameter : parameters) {
+                switch (parameter) {
+                    case NAME_ASCENDING:
+                        comparison = o1.fName.compareTo(o2.fName);
+                        if (comparison != 0) return comparison;
+                        break;
+                    case NAME_DESCENDING:
+                        comparison = o2.lName.compareTo(o1.lName);
+                        if (comparison != 0) return comparison;
+                        break;
+
+                }
+            }
+            return 0;
+        }
+    }
 }
+
+
+
+
+

@@ -10,6 +10,6 @@ public class EditContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
         Contact contact=getIntent().getExtras().getParcelable("contact");
-        System.out.println("++++after-> "+contact.toString());
+;
     }
 }
