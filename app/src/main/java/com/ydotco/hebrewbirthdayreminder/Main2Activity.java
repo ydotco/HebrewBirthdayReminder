@@ -30,6 +30,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main2);
         //hideTitleBar();
 
@@ -152,6 +153,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.fab2:
+                Intent intent1=new Intent(this,EditContact.class);
+                Contact contactq=user.contactList.get(0);
+                System.out.println("++++before-> "+contactq.toString());
+                intent1.putExtra("contact",contactq);
+                startActivity(intent1);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
 

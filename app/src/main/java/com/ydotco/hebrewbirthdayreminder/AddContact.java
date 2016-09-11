@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class AddContact extends AppCompatActivity {
-    User user=User.getInstance();
+    User user = User.getInstance();
     Contact contact;
     EditText etFName, etLName, etPhone;
     CheckBox cbWeek, cbMonth, cbDay;
@@ -36,7 +36,6 @@ public class AddContact extends AppCompatActivity {
         monthx = 8;
         dayx = 10;
         contact = new Contact();
-        progressBar= (ProgressBar) findViewById(R.id.loadingPanel);
         etFName = (EditText) findViewById(R.id.etFName);
         etLName = (EditText) findViewById(R.id.etLname);
         etPhone = (EditText) findViewById(R.id.etPhone);
@@ -57,9 +56,8 @@ public class AddContact extends AppCompatActivity {
             etLName.setError("please enter Last name");
             return;
         }
-        progressBar.setVisibility(View.VISIBLE);
 
-        System.out.println("year="+yearx+"month=" +monthx+"day="+ dayx);
+        System.out.println("year=" + yearx + "month=" + monthx + "day=" + dayx);
         contact.fName = fName;
         contact.lName = lName;
         contact.phoneNumber = phone;
@@ -67,12 +65,13 @@ public class AddContact extends AppCompatActivity {
         contact.dayReminder = cbDay.isChecked();
         contact.monthReminder = cbMonth.isChecked();
         contact.weekReminder = cbWeek.isChecked();
-        if(contact.GetConvertedBDays(yearx,monthx,dayx)==true){
-        user.AddContact(contact,this);
-        Toast.makeText(AddContact.this, "Contact Added Successfully!", Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.GONE);}
-        else {Toast.makeText(AddContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();}
-        Intent intent=new Intent(this,Main2Activity.class);
+        if (contact.GetConvertedBDays(yearx, monthx, dayx) == true) {
+            user.AddContact(contact, this);
+            Toast.makeText(AddContact.this, "Contact Added Successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(AddContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();
+        }
+        Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
 

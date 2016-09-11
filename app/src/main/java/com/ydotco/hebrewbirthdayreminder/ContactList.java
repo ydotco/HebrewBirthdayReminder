@@ -51,6 +51,7 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
 
     @Override
     public boolean onQueryTextChange(String query) {
+
         query = query.toLowerCase();
 
         final List<Contact> filteredModelList = new ArrayList<>();
@@ -62,10 +63,8 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
                 filteredModelList.add(model);
             }
         }
-
         //fix when deleting query
-
-        adapter.animateTo(filteredModelList);
+            adapter.animateTo(filteredModelList);
         recyclerview.scrollToPosition(0);
         return true;
     }

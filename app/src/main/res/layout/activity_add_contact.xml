@@ -41,10 +41,9 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:src="@drawable/ic_call_black_24dp"
-        android:layout_below="@+id/simpleTextInputLayoutLName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp" />
+        android:layout_alignTop="@+id/simpleTextInputLayoutPhone"
+        android:layout_toLeftOf="@+id/cbMonth"
+        android:layout_toStartOf="@+id/cbMonth" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -84,8 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
-        android:layout_alignTop="@+id/imageView2"
-       >
+        android:layout_above="@+id/tvReminded">
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="wrap_content"
@@ -169,20 +167,6 @@
         android:layout_below="@+id/cbWeek"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" >
-
-        <ProgressBar
-            android:id="@+id/loadingPanel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible"/>
-    </RelativeLayout>
 
 
 </RelativeLayout>
