@@ -85,7 +85,7 @@ public class User {
         newContact.monthReminder = monthReminder;
         newContact.weekReminder = weekReminder;
         newContact.dayReminder = dayReminder;
-       // newContact.GetConvertedBDays(yearx, monthx, dayx);
+        // newContact.GetConvertedBDays(yearx, monthx, dayx);
         newContact.id = AddContactToDB(newContact, context);
         contactList.add(newContact);
     }
@@ -102,12 +102,12 @@ public class User {
         contentValues.put("eDate", Util.ConvertDateToString(contact.eDate));
         contentValues.put("hDay", Util.ConvertIntToString(contact.hDay));
         contentValues.put("hMonth", contact.hMonth);
-        contentValues.put("Year0",Util.ConvertDateToString(contact.nextFiveYears.get(0)));
-        contentValues.put("Year1",Util.ConvertDateToString(contact.nextFiveYears.get(1)));
-        contentValues.put("Year2",Util.ConvertDateToString(contact.nextFiveYears.get(2)));
-        contentValues.put("Year3",Util.ConvertDateToString(contact.nextFiveYears.get(3)));
-        contentValues.put("Year4",Util.ConvertDateToString(contact.nextFiveYears.get(4)));
-        contentValues.put("hYear",Util.ConvertIntToString(contact.hYear));
+        contentValues.put("Year0", Util.ConvertDateToString(contact.nextFiveYears.get(0)));
+        contentValues.put("Year1", Util.ConvertDateToString(contact.nextFiveYears.get(1)));
+        contentValues.put("Year2", Util.ConvertDateToString(contact.nextFiveYears.get(2)));
+        contentValues.put("Year3", Util.ConvertDateToString(contact.nextFiveYears.get(3)));
+        contentValues.put("Year4", Util.ConvertDateToString(contact.nextFiveYears.get(4)));
+        contentValues.put("hYear", Util.ConvertIntToString(contact.hYear));
         contentValues.put("phoneNumber", contact.phoneNumber);
         contentValues.put("monthReminder", contact.monthReminder);
         contentValues.put("weekReminder", contact.weekReminder);
@@ -161,7 +161,7 @@ public class User {
                 flag = 1;
                 break;
             }
-            if (flag==0)
+            if (flag == 0)
                 return -1;
 
         }
@@ -171,13 +171,13 @@ public class User {
         contentValues.put("lName", contact.lName);
         contentValues.put("eDate", Util.ConvertDateToString(contact.eDate));
         contentValues.put("hDay", Util.ConvertIntToString(contact.hDay));
-        contentValues.put("hMonth",contact.hMonth);
-        contentValues.put("Year0",Util.ConvertDateToString(contact.nextFiveYears.get(0)));
-        contentValues.put("Year1",Util.ConvertDateToString(contact.nextFiveYears.get(1)));
-        contentValues.put("Year2",Util.ConvertDateToString(contact.nextFiveYears.get(2)));
-        contentValues.put("Year3",Util.ConvertDateToString(contact.nextFiveYears.get(3)));
-        contentValues.put("Year4",Util.ConvertDateToString(contact.nextFiveYears.get(4)));
-        contentValues.put("hYear",Util.ConvertIntToString(contact.hYear));
+        contentValues.put("hMonth", contact.hMonth);
+        contentValues.put("Year0", Util.ConvertDateToString(contact.nextFiveYears.get(0)));
+        contentValues.put("Year1", Util.ConvertDateToString(contact.nextFiveYears.get(1)));
+        contentValues.put("Year2", Util.ConvertDateToString(contact.nextFiveYears.get(2)));
+        contentValues.put("Year3", Util.ConvertDateToString(contact.nextFiveYears.get(3)));
+        contentValues.put("Year4", Util.ConvertDateToString(contact.nextFiveYears.get(4)));
+        contentValues.put("hYear", Util.ConvertIntToString(contact.hYear));
         contentValues.put("phoneNumber", contact.phoneNumber);
         contentValues.put("monthReminder", contact.monthReminder);
         contentValues.put("weekReminder", contact.weekReminder);

@@ -26,8 +26,8 @@
         <activity
             android:name=".AddContact"
             android:noHistory="true" />
-        <activity android:name=".ViewContact" />
-        <activity android:name=".EditContact"></activity>
+        <activity android:name=".ViewContact"  />
+        <activity android:name=".EditContact" android:noHistory="true"></activity>
     </application>
 
 </manifest>

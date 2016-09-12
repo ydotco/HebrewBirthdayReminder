@@ -7,6 +7,7 @@ import android.util.Log;
 import com.ydotco.hebrewbirthdayreminder.convert.from.network.Jsonizer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -51,9 +52,11 @@ public class Contact implements Parcelable {
         hMonth = in.readString();
         hYear = in.readInt();
         phoneNumber = in.readString();
-        monthReminder = in.readInt() == 0;
+        monthReminder = (in.readInt() == 0);
         weekReminder = in.readInt() == 0;
         dayReminder = in.readInt() == 0;
+        Log.d("remider","Contact parceble="+monthReminder+weekReminder+dayReminder);
+
     }
 
     public Contact(String fName, String lName, Date eDate, int hDay, String hMonth, int hYear,
@@ -191,7 +194,7 @@ public class Contact implements Parcelable {
     }
 
     public enum SortParameter {
-        NAME_ASCENDING, NAME_DESCENDING
+        NAME_ASCENDING, DATE_ASCENDING, NAME_DESCENDING
     }
 
     private static class ContactComparator implements Comparator<Contact> {
@@ -202,7 +205,7 @@ public class Contact implements Parcelable {
         }
 
         public int compare(Contact o1, Contact o2) {
-            int comparison;
+            int comparison = 0;
             for (SortParameter parameter : parameters) {
                 switch (parameter) {
                     case NAME_ASCENDING:
@@ -213,7 +216,30 @@ public class Contact implements Parcelable {
                         comparison = o2.lName.compareTo(o1.lName);
                         if (comparison != 0) return comparison;
                         break;
+                    case DATE_ASCENDING:
 
+                        // problematic.... not working well...
+                        Calendar c = Calendar.getInstance();
+                        Date today = c.getTime();
+                        Date date1 = null, date2 = null;
+                        for (int i = 0; (i < o1.nextFiveYears.size()); i++) {
+                            if (o1.nextFiveYears.get(i).compareTo(today) >=0) {
+                                date1 = o1.nextFiveYears.get(i);
+                                break;
+                            }
+                        }
+                        for (int i = 0; (i < o2.nextFiveYears.size()); i++) {
+                            if (o2.nextFiveYears.get(i).compareTo(today) >= 0) {
+                                date2 = o2.nextFiveYears.get(i);
+                                break;
+                            }
+                        }
+                        if (date1 != null && date2 != null)
+                            comparison = date1.compareTo(date2);
+                        System.out.println("+++name= "+ o1.fName+"name2 =" +
+                                o2.fName+" date1="+date1+" date2= "+date2+"compare= "+comparison);
+                        if (comparison != 0) return comparison;
+                        break;
                 }
             }
             return 0;

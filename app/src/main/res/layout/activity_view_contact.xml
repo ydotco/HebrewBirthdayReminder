@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Ofek Benzer"
-                android:id="@+id/tvName"
+                android:id="@+id/tvNameViewCon"
                 android:layout_gravity="center" />
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0547277291"
-                android:id="@+id/tvPhone"
+                android:id="@+id/tvPhoneViewCon"
                 android:layout_gravity="center" />
         </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="18 kislev"
-                android:id="@+id/tvHebBDay"
+                android:id="@+id/tvHebBDayViewCon"
                 android:layout_gravity="center" />
         </LinearLayout>
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Month"
-                android:id="@+id/tvMonthRe"
+                android:id="@+id/tvMonthReViewCon"
                 android:layout_gravity="center"
                 android:layout_weight="1" />
 
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="week"
-                android:id="@+id/tvWeekRe"
+                android:id="@+id/tvWeekReViewCon"
                 android:layout_gravity="center"
                 android:layout_weight="1" />
 
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Day"
-                android:id="@+id/tvDayRe"
+                android:id="@+id/tvDayReViewCon"
                 android:layout_gravity="center"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Next Birthday"
-                android:id="@+id/textView4"
+                android:id="@+id/tvNextBirthday"
                 android:layout_weight="1"
                 android:layout_gravity="center" />
 
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="18 march"
-                android:id="@+id/tvNextBday"
+                android:id="@+id/tvNextBdayViewCon"
                 android:layout_weight="1"
                 android:layout_gravity="center" />
         </LinearLayout>

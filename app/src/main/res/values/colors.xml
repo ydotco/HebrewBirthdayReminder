@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorFabOne">#e040fb</color>
     <color name="colorFabTwo">#2196F3</color>
+    <color name="colorReminderTrue">#82E698</color>
+    <color name="colorReminderFalse">#FA6969</color>
+
 </resources>

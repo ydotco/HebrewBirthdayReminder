@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ydotco.hebrewbirthdayreminder.EditContact">
 
@@ -23,7 +22,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:background="#345be5d7"
-            android:backgroundTint="#bc7777">
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -45,16 +44,43 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ivName"
+                android:id="@+id/ivFNameEditContact"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Ofek Benzer"
-                android:id="@+id/tvName"
+                android:inputType="textPersonName"
+                android:hint="First name"
+                android:ems="10"
+                android:id="@+id/etFNameEditCon"
+                android:textColorHint="#d6d5d5"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivLastNameEditContact"
                 android:layout_gravity="center" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Last name"
+                android:ems="10"
+                android:id="@+id/etLNameEditCon"
+                android:textColorHint="#d6d5d5"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,16 +93,19 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ivPhoneViewconract"
+                android:id="@+id/ivPhoneEditContact"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="0547277291"
-                android:id="@+id/tvPhone"
-                android:layout_gravity="center" />
+                android:inputType="phone"
+                android:ems="10"
+                android:hint="Phone"
+                android:id="@+id/etPhoneEditCon"
+                android:textColorHint="#d6d5d5"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -89,16 +118,18 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ivHebBDayViewContact"
-                android:layout_gravity="center" />
+                android:id="@+id/ivHebBDayEditContact"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:src="@android:drawable/ic_menu_my_calendar"/>
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="18 kislev"
-                android:id="@+id/tvHebBDay"
-                android:layout_gravity="center" />
+                android:text="choose date"
+                android:onClick="chooseDateBtnClickEditCon"
+                android:id="@+id/btnBDayEditCon" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -109,31 +140,46 @@
             android:layout_weight="1">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="when would you like to be remided?"
+                android:id="@+id/tvWhenWouldYouLikeToBeRemided" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+
+            <CheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Month"
-                android:id="@+id/tvMonthRe"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:id="@+id/cbMonthEditCon"
+                android:layout_weight="1"
+                android:checked="false" />
 
-            <TextView
+            <CheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="week"
-                android:id="@+id/tvWeekRe"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:text="Week"
+                android:id="@+id/cbWeekEditCon"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:checked="false" />
 
-            <TextView
+            <CheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Day"
-                android:id="@+id/tvDayRe"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:id="@+id/cbDayEditCon"
+                android:layout_weight="1"
+                android:checked="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,31 +189,15 @@
             android:layout_gravity="center"
             android:layout_weight="1">
 
-            <TextView
-                android:layout_width="0dp"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Next Birthday"
-                android:id="@+id/textView4"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="18 march"
-                android:id="@+id/tvNextBday"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
+                android:text="Done!"
+                android:id="@+id/btnUpdateContactEditCon"
+                android:layout_gravity="center"
+                android:onClick="updateContactBtnClick"
+                android:layout_weight="1" />
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"></LinearLayout>
 
     </LinearLayout>
 

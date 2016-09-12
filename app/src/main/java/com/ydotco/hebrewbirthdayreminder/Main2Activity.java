@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +16,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ContactAdapter contactAdapter;
-    User user=User.getInstance();
+    User user = User.getInstance();
     CalendarView calendarView;
 
     private Boolean isFabOpen = false;
@@ -33,7 +36,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.activity_main2);
         //hideTitleBar();
-
+        Log.d("remider", "activity main start" + user.contactList.toString());
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
 
@@ -43,6 +46,14 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         initcalView();
         //refresh data on calendarview
         //print upcoming events
+
+        Log.d("remider", "activity main before comperator" + user.contactList.toString());
+
+        //sort list by name
+        Comparator cp = Contact.getComparator(Contact.SortParameter.DATE_ASCENDING);
+        Collections.sort(user.contactList, cp);
+        Log.d("remider", "activity main after comperator" + user.contactList.toString());
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -66,8 +77,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.main_menu, menu);
-            return true;
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
 
     }
 
@@ -75,7 +86,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icAllContacts:
-                Intent intent =new Intent(this,ContactList.class);
+                Intent intent = new Intent(this, ContactList.class);
                 startActivity(intent);
                 return true;
             default:
@@ -94,21 +105,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     //setting up a list of contacts to be shown at the listview
     private List<Contact> getContactList() {
-       /* List<Contact> contacts = new ArrayList<>();
-        String[] fNames = {"Yoni", "Ora", "Vered", "Ofek", "Asher"};
-        String[] lNames = {"sade", "Loepold", "Engel", "Benzer", "Schwartz"};
-        int[] dayDates = {22, 10, 1, 17, 8};
-
-
-        for (int i = 0; i < fNames.length; i++) {
-            Contact contactt = new Contact();
-            contactt.fName = fNames[i];
-            contactt.lName = lNames[i];
-            contactt.hMonth = Util.hebMonths[i];
-            contactt.hDay = dayDates[i];
-            contacts.add(contactt);
-        }
-        return contacts;*/
         return user.contactList;
     }
 
@@ -116,6 +112,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
         //add dates to calendar
     }
+
     //when a date is clicked on show relevant contacts
     private void updateList(int year, int month, int dayOfMonth) {
     }
@@ -152,9 +149,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.fab2:
-                Intent intent1=new Intent(this,EditContact.class);
-                Contact contactq=user.contactList.get(0);
-                intent1.putExtra("contact",contactq);
+                Intent intent1 = new Intent(this, EditContact.class);
+                Contact contactq = user.contactList.get(0);
+                Log.d("remider", "before=" + contactq.toString());
+                intent1.putExtra("contact", contactq);
                 startActivity(intent1);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
