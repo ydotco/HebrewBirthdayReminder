@@ -23,7 +23,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:background="#345be5d7"
-            android:backgroundTint="#bc7777">
+           >
 
             <ImageView
                 android:layout_width="wrap_content"

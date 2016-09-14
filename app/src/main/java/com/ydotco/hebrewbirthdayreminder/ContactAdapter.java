@@ -8,19 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     LayoutInflater inflater;
-    List<Contact> contacts= Collections.emptyList();
+    List<Contact> contacts = Collections.emptyList();
 
 
-    public ContactAdapter(Context context,List<Contact> contacts) {
+    public ContactAdapter(Context context, List<Contact> contacts) {
         inflater = LayoutInflater.from(context);
-        this.contacts=contacts;
+        this.contacts = contacts;
     }
 
     @Override
@@ -31,9 +30,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position) {
-        Contact contact=contacts.get(position);
-        holder.tvName.setText(contact.fName+" "+contact.lName);
-        holder.tvDate.setText(""+contact.hDay + " " + contact.hMonth);
+        Contact contact = contacts.get(position);
+        holder.tvName.setText(contact.fName + " " + contact.lName);
+        holder.tvDate.setText("" + contact.hDay + " " + contact.hMonth);
         holder.imageView.setImageResource(R.drawable.birthday_image);
     }
 
@@ -42,12 +41,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return contacts.size();
     }
 
-
-    public void setFilter(List<Contact> contactModels) {
-        contacts = new ArrayList<>();
-        contacts.addAll(contactModels);
-        notifyDataSetChanged();
-    }
 
     public Contact removeItem(int position) {
         final Contact model = contacts.remove(position);
@@ -99,15 +92,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             }
         }
     }
-    class ContactViewHolder extends RecyclerView.ViewHolder{
+
+    class ContactViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView tvName,tvDate;
+        TextView tvName, tvDate;
 
         public ContactViewHolder(View itemView) {
             super(itemView);
-            imageView= (ImageView) itemView.findViewById(R.id.ivContactItem);
-            tvName= (TextView) itemView.findViewById(R.id.tvContactItem);
-            tvDate= (TextView) itemView.findViewById(R.id.tvDateContactItem);
+            imageView = (ImageView) itemView.findViewById(R.id.ivContactItem);
+            tvName = (TextView) itemView.findViewById(R.id.tvContactItem);
+            tvDate = (TextView) itemView.findViewById(R.id.tvDateContactItem);
         }
     }
 }

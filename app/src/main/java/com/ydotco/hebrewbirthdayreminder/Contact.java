@@ -55,7 +55,6 @@ public class Contact implements Parcelable {
         monthReminder = (in.readInt() == 0);
         weekReminder = in.readInt() == 0;
         dayReminder = in.readInt() == 0;
-        Log.d("remider","Contact parceble="+monthReminder+weekReminder+dayReminder);
 
     }
 

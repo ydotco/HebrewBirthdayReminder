@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -66,7 +65,6 @@ public class AddContact extends AppCompatActivity {
         contact.weekReminder = cbWeek.isChecked();
         if (contact.GetConvertedBDays(yearx, monthx, dayx) == true) {
             user.AddContact(contact, this);
-            Log.d("remider", "addcontact after user add contact=" + contact.toString());
             Toast.makeText(AddContact.this, "Contact Added Successfully!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(AddContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();

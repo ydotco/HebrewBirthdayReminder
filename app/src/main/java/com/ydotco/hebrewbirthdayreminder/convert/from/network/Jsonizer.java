@@ -65,6 +65,8 @@ public class Jsonizer {
                     if(hebEngDate.getHm().equals("Adar II"))     //correct format for api
                         hebEngDate.setHm("Adar2");
                     Log.i("info","jsonizer after first convert");
+                    if(hebEngDate.getHm().equals("Sh'vat"))
+                        hebEngDate.setHm("Shvat");
                     convertAll();
                 } catch (JSONException e) {
                     e.printStackTrace();

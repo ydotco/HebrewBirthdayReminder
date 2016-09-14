@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +35,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.activity_main2);
         //hideTitleBar();
-        Log.d("remider", "activity main start" + user.contactList.toString());
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
 
@@ -47,12 +45,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         //refresh data on calendarview
         //print upcoming events
 
-        Log.d("remider", "activity main before comperator" + user.contactList.toString());
 
         //sort list by name
         Comparator cp = Contact.getComparator(Contact.SortParameter.DATE_ASCENDING);
         Collections.sort(user.contactList, cp);
-        Log.d("remider", "activity main after comperator" + user.contactList.toString());
 
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -149,9 +145,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.fab2:
-                Intent intent1 = new Intent(this, EditContact.class);
+                Intent intent1 = new Intent(this, ViewContact.class);
                 Contact contactq = user.contactList.get(0);
-                Log.d("remider", "before=" + contactq.toString());
                 intent1.putExtra("contact", contactq);
                 startActivity(intent1);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
