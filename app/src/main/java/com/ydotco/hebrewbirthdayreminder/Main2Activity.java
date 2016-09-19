@@ -1,14 +1,16 @@
 package com.ydotco.hebrewbirthdayreminder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,10 +36,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main2);
-        //hideTitleBar();
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
-
         contactAdapter = new ContactAdapter(getApplication(), getContactList());
         recyclerView.setAdapter(contactAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
@@ -69,13 +69,34 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(Main2Activity.this, ViewContact.class);
+                intent.putExtra("contact", getContactList().get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Comparator cp = Contact.getComparator(Contact.SortParameter.DATE_ASCENDING);
+        Collections.sort(user.contactList, cp);
+        recyclerView.setAdapter(contactAdapter);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
-
     }
 
     @Override
@@ -93,11 +114,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void hideTitleBar() {
+   /* private void hideTitleBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();
-    }
+    }*/
 
     //setting up a list of contacts to be shown at the listview
     private List<Contact> getContactList() {
@@ -109,7 +130,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         //add dates to calendar
     }
 
-    //when a date is clicked on show relevant contacts
+    //when a date is clicked show relevant contacts
     private void updateList(int year, int month, int dayOfMonth) {
     }
 
@@ -145,14 +166,69 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.fab2:
-                Intent intent1 = new Intent(this, ViewContact.class);
-                Contact contactq = user.contactList.get(0);
-                intent1.putExtra("contact", contactq);
-                startActivity(intent1);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
 
         }
     }
+
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView,
+                                     final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+
+                    super.onLongPress(e);
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+
+    }
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
 }
+
+
+
+
+
+
 

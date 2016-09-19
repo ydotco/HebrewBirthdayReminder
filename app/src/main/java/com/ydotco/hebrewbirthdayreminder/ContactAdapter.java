@@ -103,5 +103,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             tvName = (TextView) itemView.findViewById(R.id.tvContactItem);
             tvDate = (TextView) itemView.findViewById(R.id.tvDateContactItem);
         }
+
     }
 }

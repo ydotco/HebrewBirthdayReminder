@@ -235,8 +235,6 @@ public class Contact implements Parcelable {
                         }
                         if (date1 != null && date2 != null)
                             comparison = date1.compareTo(date2);
-                        System.out.println("+++name= "+ o1.fName+"name2 =" +
-                                o2.fName+" date1="+date1+" date2= "+date2+"compare= "+comparison);
                         if (comparison != 0) return comparison;
                         break;
                 }

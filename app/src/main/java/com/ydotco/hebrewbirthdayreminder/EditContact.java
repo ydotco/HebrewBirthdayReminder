@@ -39,13 +39,10 @@ public class EditContact extends AppCompatActivity {
     }
 
     private void setupView() {
-        System.out.println("++++++in setup view");
-
 
     }
 
     private void initView() {
-        System.out.println("++++++in initview");
 
         yearx = 1989;
         monthx = 8;
@@ -89,8 +86,8 @@ public class EditContact extends AppCompatActivity {
             user.EditContact(contact, this);
             Toast.makeText(EditContact.this, "Contact updated Successfully!", Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(this, Main2Activity.class);
-        startActivity(intent);
+        finish();
+        startActivity( new Intent(this, Main2Activity.class));
 
     }
 

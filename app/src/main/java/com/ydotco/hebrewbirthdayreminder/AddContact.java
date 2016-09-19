@@ -2,6 +2,7 @@ package com.ydotco.hebrewbirthdayreminder;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,8 +55,9 @@ public class AddContact extends AppCompatActivity {
             etLName.setError("please enter Last name");
             return;
         }
-
-        System.out.println("year=" + yearx + "month=" + monthx + "day=" + dayx);
+        ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("one sec... creating contact");
+        progressDialog.show();
         contact.fName = fName;
         contact.lName = lName;
         contact.phoneNumber = phone;
@@ -69,8 +71,9 @@ public class AddContact extends AppCompatActivity {
         } else {
             Toast.makeText(AddContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(this, Main2Activity.class);
-        startActivity(intent);
+        progressDialog.dismiss();
+        finish();
+        startActivity(new Intent(this, Main2Activity.class));
     }
 
     public void chooseDateBtnClick(View view) {

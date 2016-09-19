@@ -46,7 +46,6 @@ public class ViewContact extends AppCompatActivity {
             DayRe.setTextColor(ContextCompat.getColor(this,R.color.colorReminderFalse));
 
         SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy");
-
         nextBDay.setText(sdf.format(getNextBDay()));
 
 

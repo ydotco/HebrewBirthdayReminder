@@ -53,6 +53,8 @@ public class GifView extends View {
         }
     }
     private int gifId;
+
+
     public void setGIFResource(int resId) {
         this.gifId = resId;
         initView();

@@ -31,9 +31,8 @@ public class Jsonizer {
     private int i = 0;
 
 
-
     public Jsonizer() {
-        done=false;
+        done = false;
         hebEngDate = new HebEngDate();
         client = OkHttpSingleton.getInstance().getClient();
         list = new ArrayList<>();
@@ -43,36 +42,44 @@ public class Jsonizer {
 
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+                                                e.printStackTrace();
+                                            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-                String string = response.body().string();
-                try {
-                    JSONObject jsonObject = new JSONObject(string);
-                    hebEngDate.setGy(Integer.parseInt(jsonObject.get("gy").toString()));
-                    hebEngDate.setGd(Integer.parseInt(jsonObject.get("gd").toString()));
-                    hebEngDate.setGm(Integer.parseInt(jsonObject.get("gm").toString()));
-                    hebEngDate.setHy(Integer.parseInt(jsonObject.get("hy").toString()));
-                    hebEngDate.setHm(jsonObject.get("hm").toString());
-                    hebEngDate.setHd(Integer.parseInt(jsonObject.get("hd").toString()));
-                    if(hebEngDate.getHm().equals("Adar II"))     //correct format for api
-                        hebEngDate.setHm("Adar2");
-                    Log.i("info","jsonizer after first convert");
-                    if(hebEngDate.getHm().equals("Sh'vat"))
-                        hebEngDate.setHm("Shvat");
-                    convertAll();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                if (!response.isSuccessful()) {
+                                                    throw new IOException("Unexpected code " + response);
+                                                }
+                                                String string = response.body().string();
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(string);
+                                                    hebEngDate.setGy(Integer.parseInt(jsonObject.get("gy").toString()));
+                                                    hebEngDate.setGd(Integer.parseInt(jsonObject.get("gd").toString()));
+                                                    hebEngDate.setGm(Integer.parseInt(jsonObject.get("gm").toString()));
+                                                    hebEngDate.setHy(Integer.parseInt(jsonObject.get("hy").toString()));
+                                                    hebEngDate.setHm(jsonObject.get("hm").toString());
+                                                    hebEngDate.setHd(Integer.parseInt(jsonObject.get("hd").toString()));
+                                                    if (hebEngDate.getHm().equals("Adar II"))     //correct format for api
+                                                        hebEngDate.setHm("Adar2");
+                                                    Log.i("info", "jsonizer after first convert");
+                                                    if (hebEngDate.getHm().equals("Sh'vat"))
+                                                        hebEngDate.setHm("Shvat");
+                                                    if (hebEngDate.getHm().equals("Adar I"))
+                                                        hebEngDate.setHm("Adar1");
+                                                    convertAll();
+                                                } catch (
+                                                        JSONException e
+                                                        )
+
+                                                {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+        );
 
     }
 
@@ -132,13 +139,12 @@ public class Jsonizer {
                     i++;
                     if (i == 5) {
                         SortList(list);
-                        Log.i("info","jsonizer after all request were made (i=5)");
-                        System.out.println("finished!");
-                        done=true;
+                        Log.i("info", "jsonizer after all request were made (i=5)");
+                        done = true;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.i("info","jsonizer error in one of the reqeust");
+                    Log.i("info", "jsonizer error in one of the reqeust");
 
                 }
             }
@@ -148,13 +154,14 @@ public class Jsonizer {
 
     private void SortList(ArrayList<Date> list) {
         Collections.sort(list);
-        Log.i("info","jsonizer list sorted");
+        Log.i("info", "jsonizer list sorted");
 
     }
 
     public ArrayList<Date> getList() {
         return list;
     }
+
     public HebEngDate getHebEngDate() {
         return hebEngDate;
     }
