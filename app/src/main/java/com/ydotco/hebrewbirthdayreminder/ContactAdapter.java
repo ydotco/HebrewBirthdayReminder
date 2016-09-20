@@ -8,18 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
-    LayoutInflater inflater;
-    List<Contact> contacts = Collections.emptyList();
+    private LayoutInflater inflater;
+    private List<Contact> contacts = Collections.emptyList();
 
 
     public ContactAdapter(Context context, List<Contact> contacts) {
         inflater = LayoutInflater.from(context);
-        this.contacts = contacts;
+        this.contacts =new ArrayList<>(contacts);
     }
 
     @Override

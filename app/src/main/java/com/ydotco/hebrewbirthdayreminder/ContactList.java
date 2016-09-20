@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -59,17 +60,19 @@ public class ContactList extends AppCompatActivity implements SearchView.OnQuery
     public boolean onQueryTextChange(String query) {
 
         query = query.toLowerCase();
-
         final List<Contact> filteredModelList = new ArrayList<>();
+
         for (Contact model : mContactModel) {
             final String textF = model.fName.toLowerCase();
             final String textL = model.lName.toLowerCase();
 
             if (textF.contains(query) || textL.contains(query)) {
+                Log.d("query","isside if"+textF.contains(query)+" and "+ textL.contains(query));
                 filteredModelList.add(model);
             }
         }
         //fix when deleting query
+        Log.d("query",query);
             adapter.animateTo(filteredModelList);
         recyclerview.scrollToPosition(0);
         return true;

@@ -7,16 +7,26 @@
     android:layout_height="match_parent"
     android:id="@+id/llMain">
 
-    <CalendarView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/calendarView"
-        android:layout_weight="0.77"/>
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="#aae95451"
+        app:compactCalendarTextColor="#fff"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+        app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/rvCalendarContacts"
 
-        android:layout_weight="0.70" />
+        />
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.ydotco.hebrewbirthdayreminder;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -65,7 +64,7 @@ public class AddContact extends AppCompatActivity {
         contact.dayReminder = cbDay.isChecked();
         contact.monthReminder = cbMonth.isChecked();
         contact.weekReminder = cbWeek.isChecked();
-        if (contact.GetConvertedBDays(yearx, monthx, dayx) == true) {
+        if (contact.GetConvertedBDays(yearx, monthx, dayx)) {
             user.AddContact(contact, this);
             Toast.makeText(AddContact.this, "Contact Added Successfully!", Toast.LENGTH_SHORT).show();
         } else {
@@ -73,7 +72,7 @@ public class AddContact extends AppCompatActivity {
         }
         progressDialog.dismiss();
         finish();
-        startActivity(new Intent(this, Main2Activity.class));
+        //startActivity(new Intent(this, Main2Activity.class));
     }
 
     public void chooseDateBtnClick(View view) {

@@ -2,8 +2,10 @@ package com.ydotco.hebrewbirthdayreminder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,49 +16,63 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ContactAdapter contactAdapter;
+    private CompactCalendarView compactCalendarView;
     User user = User.getInstance();
-    CalendarView calendarView;
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM  yyyy", Locale.getDefault());
 
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main2);
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
-        recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
-        contactAdapter = new ContactAdapter(getApplication(), getContactList());
-        recyclerView.setAdapter(contactAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
-        initcalView();
-        //refresh data on calendarview
-        //print upcoming events
-
-
         //sort list by name
         Comparator cp = Contact.getComparator(Contact.SortParameter.DATE_ASCENDING);
         Collections.sort(user.contactList, cp);
 
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.rvCalendarContacts);
+        contactAdapter = new ContactAdapter(getApplication(), getContactList());
+        recyclerView.setAdapter(contactAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
+        compactCalendarView= (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        compactCalendarView.setShouldShowMondayAsFirstDay(false);
+        toolbar=getSupportActionBar();
+        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                updateList(year, month, dayOfMonth);
+            public void onDayClick(Date dateClicked) {
+                updateList(dateClicked);
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
             }
         });
+        initCalView();
+        //refresh data on calendarview
+        //print upcoming events barrier
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
@@ -83,6 +99,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             }
         }));
     }
+
 
     @Override
     protected void onStart() {
@@ -125,13 +142,28 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         return user.contactList;
     }
 
-    private void initcalView() {
 
-        //add dates to calendar
+    //add dates to calendar
+    private void initCalView() {
+        for (Contact contact:user.contactList
+             ) {
+            for (Date date:contact.nextFiveYears
+                 ) {
+                compactCalendarView.addEvent(new Event(Color.BLUE,date.getTime(),contact),true);
+            }
+        }
     }
 
     //when a date is clicked show relevant contacts
-    private void updateList(int year, int month, int dayOfMonth) {
+    private void updateList(Date date) {
+        List<Event> dayList=compactCalendarView.getEvents(date);
+        final List<Contact> filteredList=new ArrayList<>();
+        for (int i = 0; i <dayList.size() ; i++) {
+            filteredList.add((Contact) dayList.get(i).getData());
+        }
+        System.out.println("hey! >>"+filteredList);
+        ContactAdapter contactAdapter2 = new ContactAdapter(this, filteredList);
+        recyclerView.setAdapter(contactAdapter2);
     }
 
     public void animateFAB() {
@@ -177,8 +209,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         private GestureDetector gestureDetector;
         private ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView,
-                                     final ClickListener clickListener) {
+        RecyclerTouchListener(Context context, final RecyclerView recyclerView,
+                              final ClickListener clickListener) {
             this.clickListener = clickListener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override

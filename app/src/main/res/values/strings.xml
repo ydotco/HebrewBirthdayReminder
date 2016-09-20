@@ -5,4 +5,5 @@
     <string name="action_search">search</string>
     <string name="action_contacts">contacts</string>
     <string name="action_view_contacts">action_view_contact</string>
+    <string name="title_activity_main">Main</string>
 </resources>
