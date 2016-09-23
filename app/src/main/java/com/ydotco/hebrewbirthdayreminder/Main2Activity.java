@@ -1,5 +1,7 @@
 package com.ydotco.hebrewbirthdayreminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +25,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -56,7 +59,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         recyclerView.setAdapter(contactAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
         compactCalendarView= (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        compactCalendarView.setShouldShowMondayAsFirstDay(false);
+        if (compactCalendarView != null) {
+            compactCalendarView.setShouldShowMondayAsFirstDay(false);
+        }
         toolbar=getSupportActionBar();
         toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -161,7 +166,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i <dayList.size() ; i++) {
             filteredList.add((Contact) dayList.get(i).getData());
         }
-        System.out.println("hey! >>"+filteredList);
         ContactAdapter contactAdapter2 = new ContactAdapter(this, filteredList);
         recyclerView.setAdapter(contactAdapter2);
     }
@@ -194,14 +198,36 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 animateFAB();
                 break;
             case R.id.fab1:
+                if(Util.getConnectivityStatus(this)==-1){
+                    Toast.makeText(this, "You must connect to the internet in order to add a contact", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 Intent intent = new Intent(this, AddContact.class);
                 startActivity(intent);
                 break;
             case R.id.fab2:
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+                notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+                PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, 5);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
 
         }
+    }
+
+
+    //returns to current day on calendar view and contact list
+    public void BackToToday(View view) {
+
+        compactCalendarView.setCurrentDate(Calendar.getInstance().getTime());
+        recyclerView.setAdapter(contactAdapter);
     }
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {

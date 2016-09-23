@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -86,6 +87,10 @@ public class ViewContact extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icViewContacts:
+                if(Util.getConnectivityStatus(this)==-1){
+                    Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
+                    return true;
+                }
                 Intent intent = new Intent(this, EditContact.class);
                 intent.putExtra("contact",contact);
                 startActivity(intent);

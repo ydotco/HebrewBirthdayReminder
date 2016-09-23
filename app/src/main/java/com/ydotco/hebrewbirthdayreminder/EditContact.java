@@ -72,18 +72,14 @@ public class EditContact extends AppCompatActivity {
         contact.monthReminder = cbMonth.isChecked();
         contact.weekReminder = cbWeek.isChecked();
         if (dateChanged) {
-            Log.d("20/09","date chane = true");
             contact.eDate = Util.ConvertIntToDate(yearx, monthx, dayx);
             if (contact.GetConvertedBDays(yearx, monthx, dayx)) {
-                Log.d("20/09","get converted = true");
                 user.EditContact(contact, this);
                 Toast.makeText(EditContact.this, "Contact updated Successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(EditContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Log.d("20/09","in the else bit");
-
             user.EditContact(contact, this);
             Toast.makeText(EditContact.this, "Contact updated Successfully!", Toast.LENGTH_SHORT).show();
         }

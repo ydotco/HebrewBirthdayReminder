@@ -6,4 +6,5 @@
     <string name="action_contacts">contacts</string>
     <string name="action_view_contacts">action_view_contact</string>
     <string name="title_activity_main">Main</string>
+    <string name="no_internet">You must connect to the internet in order to add a contact</string>
 </resources>

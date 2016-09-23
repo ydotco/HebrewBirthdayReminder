@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.ydotco.hebrewbirthdayreminder.database.DbContactTable;
 
@@ -56,16 +55,14 @@ public class User {
                             Util.CovertStringToDate(Year1), Util.CovertStringToDate(Year2), Util.CovertStringToDate(Year3),
                             Util.CovertStringToDate(Year4))),
                     Util.ConvertStringToInt(hDay), (hMonth),
-                    Util.ConvertStringToInt(hYear), phoneNumber, ConvertStringToBool(monthReminder),
-                    ConvertStringToBool(weekReminder), ConvertStringToBool(dayReminder)));
+                    Util.ConvertStringToInt(hYear), phoneNumber, Util.ConvertStringToBool(monthReminder),
+                    Util.ConvertStringToBool(weekReminder), Util.ConvertStringToBool(dayReminder)));
         }
 
         cursor.close();
     }
 
-    private Boolean ConvertStringToBool(String stringBool) {
-        return (stringBool.equals("1"));
-    }
+
 
     public void AddContact(Contact newContact, Context context) {
         newContact.id = AddContactToDB(newContact, context);

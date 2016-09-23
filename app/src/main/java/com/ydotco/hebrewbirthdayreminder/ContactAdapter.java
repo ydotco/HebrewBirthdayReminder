@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
+class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private LayoutInflater inflater;
     private List<Contact> contacts = Collections.emptyList();
 
 
-    public ContactAdapter(Context context, List<Contact> contacts) {
+    ContactAdapter(Context context, List<Contact> contacts) {
         inflater = LayoutInflater.from(context);
         this.contacts =new ArrayList<>(contacts);
     }
@@ -33,7 +33,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         Contact contact = contacts.get(position);
         holder.tvName.setText(contact.fName + " " + contact.lName);
-        holder.tvDate.setText("" + contact.hDay + " " + contact.hMonth);
+        holder.tvDate.setText("" + contact.hDay + " " + contact.hMonth );
         holder.imageView.setImageResource(R.drawable.birthday_image);
     }
 
@@ -42,25 +42,28 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return contacts.size();
     }
 
+    public Contact getItem(int position){
+        return contacts.get(position);
+    }
 
-    public Contact removeItem(int position) {
+    private Contact removeItem(int position) {
         final Contact model = contacts.remove(position);
         notifyItemRemoved(position);
         return model;
     }
 
-    public void addItem(int position, Contact model) {
+    private void addItem(int position, Contact model) {
         contacts.add(position, model);
         notifyItemInserted(position);
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
+    private void moveItem(int fromPosition, int toPosition) {
         final Contact model = contacts.remove(fromPosition);
         contacts.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public void animateTo(List<Contact> models) {
+    void animateTo(List<Contact> models) {
         applyAndAnimateRemovals(models);
         applyAndAnimateAdditions(models);
         applyAndAnimateMovedItems(models);
@@ -98,7 +101,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         ImageView imageView;
         TextView tvName, tvDate;
 
-        public ContactViewHolder(View itemView) {
+        ContactViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.ivContactItem);
             tvName = (TextView) itemView.findViewById(R.id.tvContactItem);

@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by yotamc on 27-Jul-16.
  */
-public class Contact implements Parcelable {
+class Contact implements Parcelable {
 
     public int id;
     public int image;
@@ -31,7 +31,7 @@ public class Contact implements Parcelable {
     boolean dayReminder;        //
 
     //ctors
-    public Contact() {
+    Contact() {
         nextFiveYears = new ArrayList<>();
 
     }
@@ -75,9 +75,9 @@ public class Contact implements Parcelable {
 
     }
 
-    public Contact(int id, String fName, String lName, Date eDate, ArrayList<Date> nextFiveYears,
-                   int hDay, String hMonth, int hYear, String phoneNumber, boolean monthReminder,
-                   boolean weekReminder, boolean dayReminder) {
+    Contact(int id, String fName, String lName, Date eDate, ArrayList<Date> nextFiveYears,
+            int hDay, String hMonth, int hYear, String phoneNumber, boolean monthReminder,
+            boolean weekReminder, boolean dayReminder) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -93,7 +93,7 @@ public class Contact implements Parcelable {
     }
 
     //methods
-    public Boolean GetConvertedBDays(int yearx, int monthx, int dayx) {
+    Boolean GetConvertedBDays(int yearx, int monthx, int dayx) {
         Jsonizer jsonizer = new Jsonizer();
         String sDay = Util.ConvertIntToString(dayx);
         String sMonth = Util.ConvertIntToString(monthx);
@@ -188,11 +188,18 @@ public class Contact implements Parcelable {
         Collections.sort(ContactList, cp);*/
 
 
-    public static Comparator<Contact> getComparator(SortParameter... sortParameters) {
+    static Comparator<Contact> getComparator(SortParameter... sortParameters) {
         return new ContactComparator(sortParameters);
     }
 
-    public enum SortParameter {
+    int getAge() {
+        Calendar c = Calendar.getInstance();
+        int today = c.get(Calendar.YEAR);
+        c.setTime(eDate);
+        return today - c.get(Calendar.YEAR);
+    }
+
+    enum SortParameter {
         NAME_ASCENDING, DATE_ASCENDING, NAME_DESCENDING
     }
 
@@ -222,7 +229,7 @@ public class Contact implements Parcelable {
                         Date today = c.getTime();
                         Date date1 = null, date2 = null;
                         for (int i = 0; (i < o1.nextFiveYears.size()); i++) {
-                            if (o1.nextFiveYears.get(i).compareTo(today) >=0) {
+                            if (o1.nextFiveYears.get(i).compareTo(today) >= 0) {
                                 date1 = o1.nextFiveYears.get(i);
                                 break;
                             }
@@ -242,6 +249,8 @@ public class Contact implements Parcelable {
             return 0;
         }
     }
+
+
 }
 
 

@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 public class OkHttpSingleton {
     private static OkHttpSingleton ourInstance = null;
 
-    public OkHttpClient getClient() {
+    OkHttpClient getClient() {
         return client;
     }
 

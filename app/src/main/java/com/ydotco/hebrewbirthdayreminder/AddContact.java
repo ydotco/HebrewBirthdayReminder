@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ public class AddContact extends AppCompatActivity {
     Contact contact;
     EditText etFName, etLName, etPhone;
     CheckBox cbWeek, cbMonth, cbDay;
+    Button btnAddContact;
     int yearx, monthx, dayx;
 
 
@@ -40,9 +42,11 @@ public class AddContact extends AppCompatActivity {
         cbDay = (CheckBox) findViewById(R.id.cbDay);
         cbMonth = (CheckBox) findViewById(R.id.cbMonth);
         cbWeek = (CheckBox) findViewById(R.id.cbWeek);
+        btnAddContact= (Button) findViewById(R.id.btnAdd);
     }
 
     public void AddContactBtnClick(View view) {
+
         String fName = etFName.getText().toString();
         String lName = etLName.getText().toString();
         String phone = etPhone.getText().toString();
@@ -57,6 +61,7 @@ public class AddContact extends AppCompatActivity {
         ProgressDialog progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("one sec... creating contact");
         progressDialog.show();
+        btnAddContact.setClickable(false);
         contact.fName = fName;
         contact.lName = lName;
         contact.phoneNumber = phone;
