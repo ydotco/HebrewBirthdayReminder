@@ -132,20 +132,6 @@ public class User {
 
     }
 
-    public int DelContact(int index, Context context) {
-        if (contactList.isEmpty())
-            return -1;
-        else {
-            contactList.remove(index);
-            DbContactTable dbContactTable;
-            SQLiteDatabase db;
-            dbContactTable = new DbContactTable(context.getApplicationContext());
-            db = dbContactTable.getWritableDatabase();
-            int i = db.delete("CONTACTS", "_id=" + index, null);
-            resetContactList(context);
-            return i;
-        }
-    }
 
     public int EditContact(Contact contact, Context context) {
 
@@ -184,5 +170,20 @@ public class User {
         int i = db.update("CONTACTS", contentValues, "_id=" + contact.id, null);
         resetContactList(context);
         return i;
+    }
+
+    public int delContact(Context context,Contact contact) {
+        if (contactList.isEmpty())
+            return -1;
+        else {
+            contactList.remove(contact);
+            DbContactTable dbContactTable;
+            SQLiteDatabase db;
+            dbContactTable = new DbContactTable(context.getApplicationContext());
+            db = dbContactTable.getWritableDatabase();
+            int i = db.delete("CONTACTS", "_id=" + contact.id, null);
+            resetContactList(context);
+            return i;
+        }
     }
 }

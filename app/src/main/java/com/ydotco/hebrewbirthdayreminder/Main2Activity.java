@@ -94,7 +94,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(Main2Activity.this, ViewContact.class);
-                intent.putExtra("contact", getContactList().get(position));
+                intent.putExtra("contact", contactAdapter.getItem(position));
                 startActivity(intent);
             }
 
