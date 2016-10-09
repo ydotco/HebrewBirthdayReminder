@@ -1,7 +1,5 @@
 package com.ydotco.hebrewbirthdayreminder;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -58,11 +56,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         contactAdapter = new ContactAdapter(getApplication(), getContactList());
         recyclerView.setAdapter(contactAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
-        compactCalendarView= (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         if (compactCalendarView != null) {
             compactCalendarView.setShouldShowMondayAsFirstDay(false);
         }
-        toolbar=getSupportActionBar();
+        toolbar = getSupportActionBar();
         toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -105,15 +103,14 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }));
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+    /*@Override
+    protected void onResume() {
+        super.onResume();
         Comparator cp = Contact.getComparator(Contact.SortParameter.DATE_ASCENDING);
         Collections.sort(user.contactList, cp);
         recyclerView.setAdapter(contactAdapter);
+    }*/
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,20 +147,20 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     //add dates to calendar
     private void initCalView() {
-        for (Contact contact:user.contactList
-             ) {
-            for (Date date:contact.nextFiveYears
-                 ) {
-                compactCalendarView.addEvent(new Event(Color.BLUE,date.getTime(),contact),true);
+        for (Contact contact : user.contactList
+                ) {
+            for (Date date : contact.nextFiveYears
+                    ) {
+                compactCalendarView.addEvent(new Event(Color.BLUE, date.getTime(), contact), true);
             }
         }
     }
 
     //when a date is clicked show relevant contacts
     private void updateList(Date date) {
-        List<Event> dayList=compactCalendarView.getEvents(date);
-        final List<Contact> filteredList=new ArrayList<>();
-        for (int i = 0; i <dayList.size() ; i++) {
+        List<Event> dayList = compactCalendarView.getEvents(date);
+        final List<Contact> filteredList = new ArrayList<>();
+        for (int i = 0; i < dayList.size(); i++) {
             filteredList.add((Contact) dayList.get(i).getData());
         }
         ContactAdapter contactAdapter2 = new ContactAdapter(this, filteredList);
@@ -198,7 +195,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 animateFAB();
                 break;
             case R.id.fab1:
-                if(Util.getConnectivityStatus(this)==-1){
+                if (Util.getConnectivityStatus(this) == -1) {
                     Toast.makeText(this, "You must connect to the internet in order to add a contact", Toast.LENGTH_LONG).show();
                     break;
                 }
@@ -206,16 +203,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.fab2:
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-                Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
-                notificationIntent.addCategory("android.intent.category.DEFAULT");
-
-                PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.SECOND, 5);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
                 Toast.makeText(Main2Activity.this, "coming soon...", Toast.LENGTH_SHORT).show();
                 break;
 

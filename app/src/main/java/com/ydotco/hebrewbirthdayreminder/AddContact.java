@@ -42,7 +42,7 @@ public class AddContact extends AppCompatActivity {
         cbDay = (CheckBox) findViewById(R.id.cbDay);
         cbMonth = (CheckBox) findViewById(R.id.cbMonth);
         cbWeek = (CheckBox) findViewById(R.id.cbWeek);
-        btnAddContact= (Button) findViewById(R.id.btnAdd);
+        btnAddContact = (Button) findViewById(R.id.btnAdd);
     }
 
     public void AddContactBtnClick(View view) {
@@ -58,7 +58,7 @@ public class AddContact extends AppCompatActivity {
             etLName.setError("please enter Last name");
             return;
         }
-        ProgressDialog progressDialog=new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("one sec... creating contact");
         progressDialog.show();
         btnAddContact.setClickable(false);
@@ -75,10 +75,12 @@ public class AddContact extends AppCompatActivity {
         } else {
             Toast.makeText(AddContact.this, "an Error occurred while creating contact", Toast.LENGTH_SHORT).show();
         }
+        AlarmMan alarmMan = new AlarmMan();
+        alarmMan.setAlarms(this,contact);
         progressDialog.dismiss();
         finish();
-        //startActivity(new Intent(this, Main2Activity.class));
     }
+
 
     public void chooseDateBtnClick(View view) {
         showDialog(DIALOG_ID);
